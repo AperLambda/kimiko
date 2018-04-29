@@ -16,7 +16,7 @@ apply plugin: 'maven'
 apply plugin: 'maven-publish'
 
 group = 'org.aperlambda'
-version = '1.0.0'
+version = '1.0.1'
 description = 'A library written in Java 10 providing a command system.'
 
 sourceCompatibility = 10
