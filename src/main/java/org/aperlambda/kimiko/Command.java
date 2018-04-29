@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
  * Represents a command.
  *
  * @param <S> The typename of the sender.
- * @version 1.0.3
+ * @version 1.0.4
  * @since 1.0.0
  */
 public class Command<S> implements ResourceNameable
@@ -283,26 +283,33 @@ public class Command<S> implements ResourceNameable
 		return executor.execute(context, this, label, args);
 	}
 
+	private final @NotNull CommandResult handleLocalExecution(CommandContext<S> context, String label, String[] args)
+	{
+		if (!context.hasPermission(permissionRequired))
+			return CommandResult.ERROR_PERMISSION;
+		return execute(context, label, args);
+	}
+
 	public final @NotNull Pair<CommandResult, String> handleExecution(CommandContext<S> context, String label, String[] args)
 	{
 		CommandResult result;
 		var usage = getUsage(context.getSender()).replace("<command>", getName());
 		if (args.length == 0)
-			result = execute(context, label, args);
+			result = handleLocalExecution(context, label, args);
 		else
 		{
 			var subLabel = args[0];
 			if (hasSubCommand(subLabel))
 			{
 				var command = getSubCommand(subLabel).get();
-				if (command.getPermissionRequired() != null && !context.hasPermission(permissionRequired))
+				if (command.getPermissionRequired() != null && !context.hasPermission(command.getPermissionRequired()))
 					result = CommandResult.ERROR_PERMISSION;
 				else
 					return command.handleExecution(context, subLabel, Arrays.copyOfRange(args, 1, args.length));
 				usage = getName() + " " + command.getUsage(context.getSender()).replace("<command>", command.getName());
 			}
 			else
-				result = execute(context, label, args);
+				result = handleLocalExecution(context, label, args);
 		}
 
 		if (result == CommandResult.ERROR_USAGE)
@@ -381,7 +388,7 @@ public class Command<S> implements ResourceNameable
 		var command = new Command<S>(name);
 		command.setUsage(usage);
 		command.setDescription(description);
-		command.setPermissionRequired(permissionRequired);
+		command.setPermissionRequired(permission);
 		command.setAliases(aliases);
 		command.setExecutor(executor);
 		if (tabCompleter != null)

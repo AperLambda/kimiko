@@ -16,3 +16,7 @@
 ### 1.0.3
 
  - Bug fixes: support command executing with no arguments in the String array `args`.
+ 
+### 1.0.4
+
+ - Bug fixes: permission was not handled properly.

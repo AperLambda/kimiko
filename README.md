@@ -21,5 +21,5 @@ maven { url "https://aperlambda.github.io/maven" }
 
 And in your dependencies add:
 ```groovy
-compile 'org.aperlambda:kimiko:1.0.3'
+compile 'org.aperlambda:kimiko:1.0.4'
 ```
