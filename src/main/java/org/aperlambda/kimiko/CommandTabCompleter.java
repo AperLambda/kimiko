@@ -23,5 +23,5 @@ import java.util.List;
 @FunctionalInterface
 public interface CommandTabCompleter<S>
 {
-	List<String> onTabComplete(CommandContext<S> context, @NotNull Command command, String label, String[] args);
+	List<String> onTabComplete(CommandContext<S> context, @NotNull Command<S> command, String label, String[] args);
 }

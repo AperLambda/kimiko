@@ -8,3 +8,7 @@
  
  - Added `CommandContext#sendMessage(String)`.
  - Renamed `CommandContext#testPermission(String)` to `CommandContext#hasPermission(String)`.
+ 
+### 1.0.2
+
+ - Bug fixes (Replace `Command` by `Command<S>` in `CommandExecutor` and `CommandTabCompleter`)

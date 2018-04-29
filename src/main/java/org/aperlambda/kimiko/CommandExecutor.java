@@ -31,5 +31,5 @@ public interface CommandExecutor<S>
 	 * @param args    The arguments of the command.
 	 * @return The result of the execution of the command.
 	 */
-	@NotNull CommandResult execute(CommandContext<S> context, @NotNull Command command, String label, String[] args);
+	@NotNull CommandResult execute(CommandContext<S> context, @NotNull Command<S> command, String label, String[] args);
 }
