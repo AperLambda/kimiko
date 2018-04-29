@@ -20,3 +20,7 @@
 ### 1.0.4
 
  - Bug fixes: permission was not handled properly.
+ 
+### 1.0.5
+
+ - Updates lambdajcommon to `1.4.7`.
