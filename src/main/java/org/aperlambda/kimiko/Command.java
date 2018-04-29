@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
  * Represents a command.
  *
  * @param <S> The typename of the sender.
- * @version 1.0.1
+ * @version 1.0.3
  * @since 1.0.0
  */
 public class Command<S> implements ResourceNameable
@@ -287,18 +287,23 @@ public class Command<S> implements ResourceNameable
 	{
 		CommandResult result;
 		var usage = getUsage(context.getSender()).replace("<command>", getName());
-		var subLabel = args[0];
-		if (hasSubCommand(subLabel))
-		{
-			var command = getSubCommand(subLabel).get();
-			if (command.getPermissionRequired() != null && !context.hasPermission(permissionRequired))
-				result = CommandResult.ERROR_PERMISSION;
-			else
-				return command.handleExecution(context, subLabel, Arrays.copyOfRange(args, 1, args.length));
-			usage = getName() + " " + command.getUsage(context.getSender()).replace("<command>", command.getName());
-		}
-		else
+		if (args.length == 0)
 			result = execute(context, label, args);
+		else
+		{
+			var subLabel = args[0];
+			if (hasSubCommand(subLabel))
+			{
+				var command = getSubCommand(subLabel).get();
+				if (command.getPermissionRequired() != null && !context.hasPermission(permissionRequired))
+					result = CommandResult.ERROR_PERMISSION;
+				else
+					return command.handleExecution(context, subLabel, Arrays.copyOfRange(args, 1, args.length));
+				usage = getName() + " " + command.getUsage(context.getSender()).replace("<command>", command.getName());
+			}
+			else
+				result = execute(context, label, args);
+		}
 
 		if (result == CommandResult.ERROR_USAGE)
 			return new Pair<>(result, usage);

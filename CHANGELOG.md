@@ -12,3 +12,7 @@
 ### 1.0.2
 
  - Bug fixes (Replace `Command` by `Command<S>` in `CommandExecutor` and `CommandTabCompleter`)
+ 
+### 1.0.3
+
+ - Bug fixes: support command executing with no arguments in the String array `args`.

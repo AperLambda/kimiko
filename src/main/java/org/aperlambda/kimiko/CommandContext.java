@@ -13,7 +13,7 @@ package org.aperlambda.kimiko;
  * Represents a context of a command execution or a command tab completion.
  *
  * @param <S> The typename of the sender.
- * @version 1.0.
+ * @version 1.0.1
  * @since 1.0.0
  */
 public interface CommandContext<S>
