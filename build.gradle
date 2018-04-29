@@ -1,0 +1,85 @@
+/*
+ * Copyright © 2018 AperLambda <aper.entertainment@gmail.com>
+ *
+ * This file is part of kimiko.
+ *
+ * Licensed under the MIT license. For more information,
+ * see the LICENSE file.
+ */
+
+plugins {
+    id 'org.gradle.java.experimental-jigsaw' version '0.1.1'
+}
+
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+
+group = 'org.aperlambda'
+version = '1.0.0'
+description = 'A library written in Java 10 providing a command system.'
+
+sourceCompatibility = 10
+
+ext.moduleName = 'org.aperlambda.kimiko'
+
+javaModule.name = 'org.aperlambda.kimiko'
+compileJava.options.encoding = 'UTF-8'
+
+repositories {
+    maven { url = 'https://aperlambda.github.io/maven' }
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.aperlambda:lambdajcommon:1.4.6'
+}
+
+javadoc {
+    inputs.property("moduleName", moduleName)
+    doFirst {
+        options.addStringOption('-module-path', classpath.asPath)
+    }
+}
+
+jar {
+    from 'LICENSE'
+    inputs.property("moduleName", moduleName)
+    manifest {
+        attributes('Automatic-Module-Name': moduleName)
+    }
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+
+publishing {
+    publications {
+        kimiko(MavenPublication) {
+            from components.java
+            groupId = project.group
+            artifactId = 'kimiko'
+            version = project.version
+
+            artifact sourcesJar
+            artifact javadocJar
+        }
+    }
+    repositories {
+        maven {
+            url "$buildDir/repo"
+        }
+    }
+}
