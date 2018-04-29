@@ -13,7 +13,7 @@ package org.aperlambda.kimiko;
  * Represents a context of a command execution or a command tab completion.
  *
  * @param <S> The typename of the sender.
- * @version 1.0.0
+ * @version 1.0.1
  * @since 1.0.0
  */
 public interface CommandContext<S>
@@ -33,10 +33,17 @@ public interface CommandContext<S>
 	String getSenderName();
 
 	/**
+	 * Sends a message to the sender.
+	 *
+	 * @param message The message to send.
+	 */
+	void sendMessage(String message);
+
+	/**
 	 * Checks whether the sender has the permission or not.
 	 *
 	 * @param permission The permission to test.
 	 * @return True if the sender has the permission, else false.
 	 */
-	boolean testPermission(String permission);
+	boolean hasPermission(String permission);
 }

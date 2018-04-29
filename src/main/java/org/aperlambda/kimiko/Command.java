@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
  * Represents a command.
  *
  * @param <S> The typename of the sender.
- * @version 1.0.0
+ * @version 1.0.1
  * @since 1.0.0
  */
 public class Command<S> implements ResourceNameable
@@ -291,7 +291,7 @@ public class Command<S> implements ResourceNameable
 		if (hasSubCommand(subLabel))
 		{
 			var command = getSubCommand(subLabel).get();
-			if (command.getPermissionRequired() != null && !context.testPermission(permissionRequired))
+			if (command.getPermissionRequired() != null && !context.hasPermission(permissionRequired))
 				result = CommandResult.ERROR_PERMISSION;
 			else
 				return command.handleExecution(context, subLabel, Arrays.copyOfRange(args, 1, args.length));
@@ -314,7 +314,7 @@ public class Command<S> implements ResourceNameable
 			if (subCommands.isEmpty())
 				return tabCompleter.onTabComplete(context, this, label, args);
 			var subCommandsString = subCommands.stream()
-					.filter(sc -> context.testPermission(sc.getPermissionRequired()))
+					.filter(sc -> context.hasPermission(sc.getPermissionRequired()))
 					.map(Nameable::getName).collect(Collectors.toList());
 			var additionalCompletion = tabCompleter.onTabComplete(context, this, label, args);
 			if (additionalCompletion != null && !additionalCompletion.isEmpty())
@@ -325,7 +325,7 @@ public class Command<S> implements ResourceNameable
 			if (hasSubCommand(args[0]))
 			{
 				var subCommand = getSubCommand(args[0]).get();
-				if (context.testPermission(subCommand.getPermissionRequired()))
+				if (context.hasPermission(subCommand.getPermissionRequired()))
 					return subCommand.onTabComplete(context, label, Arrays.copyOfRange(args, 1, args.length));
 			}
 		return tabCompleter.onTabComplete(context, this, label, args);
