@@ -24,3 +24,7 @@
 ### 1.0.5
 
  - Updates lambdajcommon to `1.4.8`.
+ 
+### 1.0.6
+
+ - Updates lambdajcommon to `1.4.9`

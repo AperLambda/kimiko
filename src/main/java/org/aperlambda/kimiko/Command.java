@@ -11,16 +11,12 @@ package org.aperlambda.kimiko;
 
 import org.aperlambda.lambdacommon.resources.ResourceName;
 import org.aperlambda.lambdacommon.utils.Nameable;
-import org.aperlambda.lambdacommon.utils.Optional;
 import org.aperlambda.lambdacommon.utils.Pair;
 import org.aperlambda.lambdacommon.utils.ResourceNameable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -28,7 +24,7 @@ import java.util.stream.Collectors;
  * Represents a command.
  *
  * @param <S> The typename of the sender.
- * @version 1.0.4
+ * @version 1.0.6
  * @since 1.0.0
  */
 public class Command<S> implements ResourceNameable
@@ -299,9 +295,10 @@ public class Command<S> implements ResourceNameable
 		else
 		{
 			var subLabel = args[0];
-			if (hasSubCommand(subLabel))
+			var oCommand = getSubCommand(subLabel);
+			if (oCommand.isPresent())
 			{
-				var command = getSubCommand(subLabel).get();
+				var command = oCommand.get();
 				if (command.getPermissionRequired() != null && !context.hasPermission(command.getPermissionRequired()))
 					result = CommandResult.ERROR_PERMISSION;
 				else
@@ -334,12 +331,14 @@ public class Command<S> implements ResourceNameable
 			return subCommandsString.stream().filter(sc -> sc.startsWith(args[0])).sorted().collect(Collectors.toList());
 		}
 		else if (args.length > 1)
-			if (hasSubCommand(args[0]))
+		{
+			var subCommand = getSubCommand(args[0]);
+			if (subCommand.isPresent())
 			{
-				var subCommand = getSubCommand(args[0]).get();
-				if (context.hasPermission(subCommand.getPermissionRequired()))
-					return subCommand.onTabComplete(context, label, Arrays.copyOfRange(args, 1, args.length));
+				if (context.hasPermission(subCommand.get().getPermissionRequired()))
+					return subCommand.get().onTabComplete(context, label, Arrays.copyOfRange(args, 1, args.length));
 			}
+		}
 		return tabCompleter.onTabComplete(context, this, label, args);
 	}
 
@@ -439,8 +438,8 @@ public class Command<S> implements ResourceNameable
 	public @NotNull Optional<Command<S>> getSubCommand(@NotNull String label)
 	{
 		var finalLabel = label.toLowerCase();
-		return Optional.fromJava(subCommands.stream().filter(cmd -> cmd.getName().equalsIgnoreCase(finalLabel) ||
-				cmd.getAliases().contains(finalLabel)).findFirst());
+		return subCommands.stream().filter(cmd -> cmd.getName().equalsIgnoreCase(finalLabel) ||
+				cmd.getAliases().contains(finalLabel)).findFirst();
 	}
 
 	/**

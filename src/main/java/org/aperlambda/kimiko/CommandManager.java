@@ -10,15 +10,15 @@
 package org.aperlambda.kimiko;
 
 import org.aperlambda.lambdacommon.resources.ResourceName;
-import org.aperlambda.lambdacommon.utils.Optional;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Represents a manager for commands.
  *
  * @param <S> The typename of the sender.
- * @version 1.0.0
+ * @version 1.0.6
  * @since 1.0.0
  */
 public abstract class CommandManager<S>
