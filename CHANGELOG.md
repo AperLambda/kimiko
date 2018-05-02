@@ -28,3 +28,7 @@
 ### 1.0.6
 
  - Updates lambdajcommon to `1.4.9`
+ 
+### 1.0.7
+
+ - Adds toString implementation to `Command<S>`.

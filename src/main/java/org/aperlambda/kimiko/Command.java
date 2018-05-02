@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
  * Represents a command.
  *
  * @param <S> The typename of the sender.
- * @version 1.0.6
+ * @version 1.0.7
  * @since 1.0.0
  */
 public class Command<S> implements ResourceNameable
@@ -456,5 +456,23 @@ public class Command<S> implements ResourceNameable
 	public @NotNull ResourceName getResourceName()
 	{
 		return name;
+	}
+
+	@Override
+	public String toString()
+	{
+		return "Command{" +
+				"name=" + name +
+				", parent=" + parent +
+				", usage='" + usage + '\'' +
+				", usageGetter=" + usageGetter +
+				", description='" + description + '\'' +
+				", descriptionGetter=" + descriptionGetter +
+				", aliases=" + aliases +
+				", permissionRequired='" + permissionRequired + '\'' +
+				", subCommands=" + subCommands +
+				", executor=" + executor +
+				", tabCompleter=" + tabCompleter +
+				'}';
 	}
 }
