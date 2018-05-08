@@ -32,3 +32,8 @@
 ### 1.0.7
 
  - Adds toString implementation to `Command<S>`.
+ 
+### 1.0.8
+
+ - HTML 5 javadoc
+ - lambdajcommon 1.4.10

@@ -16,7 +16,7 @@ apply plugin: 'maven'
 apply plugin: 'maven-publish'
 
 group = 'org.aperlambda'
-version = '1.0.7'
+version = '1.0.8'
 description = 'A library written in Java 10 providing a command system.'
 
 sourceCompatibility = 10
@@ -32,12 +32,13 @@ repositories {
 }
 
 dependencies {
-    compile 'org.aperlambda:lambdajcommon:1.4.9'
+    compile 'org.aperlambda:lambdajcommon:1.4.10'
 }
 
 javadoc {
     inputs.property("moduleName", moduleName)
     doFirst {
+        options.addStringOption('XDignore.symbol.file', '-html5')
         options.addStringOption('-module-path', classpath.asPath)
     }
 }
