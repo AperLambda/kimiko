@@ -1,5 +1,5 @@
 /*
- * Copyright © 2018 AperLambda <aper.entertainment@gmail.com>
+ * Copyright © 2019 LambdAurora <aurora42lambda@gmail.com>
  *
  * This file is part of kimiko.
  *
@@ -18,18 +18,18 @@ import java.util.Optional;
  * Represents a manager for commands.
  *
  * @param <S> The typename of the sender.
- * @version 1.0.6
+ * @version 1.1.0
  * @since 1.0.0
  */
 public abstract class CommandManager<S>
 {
-	public abstract void register(Command<S> command);
+    public abstract void register(Command<S> command);
 
-	public abstract boolean hasCommand(ResourceName name);
+    public abstract boolean has_command(ResourceName name);
 
-	public abstract Optional<Command<S>> getCommand(ResourceName name);
+    public abstract Optional<Command<S>> get_command(ResourceName name);
 
-	public abstract List<Command<S>> getCommands();
+    public abstract List<Command<S>> get_commands();
 
-	public abstract void clearCommands();
+    public abstract void clear_commands();
 }

@@ -12,7 +12,7 @@ It's very simple!
 
 ### Gradle
 
-Note: Please see tutorials about Gradle and Java 9
+Note: Please see tutorials about Gradle and Java 10
 
 In your repositories declaration add:
 ```groovy
@@ -21,5 +21,5 @@ maven { url "https://aperlambda.github.io/maven" }
 
 And in your dependencies add:
 ```groovy
-compile 'org.aperlambda:kimiko:1.0.8'
+compile 'org.aperlambda:kimiko:1.1.0'
 ```

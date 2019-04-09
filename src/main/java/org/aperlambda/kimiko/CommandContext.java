@@ -1,5 +1,5 @@
 /*
- * Copyright © 2018 AperLambda <aper.entertainment@gmail.com>
+ * Copyright © 2019 LambdAurora <aurora42lambda@gmail.com>
  *
  * This file is part of kimiko.
  *
@@ -13,37 +13,37 @@ package org.aperlambda.kimiko;
  * Represents a context of a command execution or a command tab completion.
  *
  * @param <S> The typename of the sender.
- * @version 1.0.1
+ * @version 1.1.0
  * @since 1.0.0
  */
 public interface CommandContext<S>
 {
-	/**
-	 * Gets the sender of the command.
-	 *
-	 * @return The sender of the command.
-	 */
-	S getSender();
+    /**
+     * Gets the sender of the command.
+     *
+     * @return The sender of the command.
+     */
+    S get_sender();
 
-	/**
-	 * Gets the command sender's name.
-	 *
-	 * @return The command sender's name.
-	 */
-	String getSenderName();
+    /**
+     * Gets the command sender's name.
+     *
+     * @return The command sender's name.
+     */
+    String get_sender_name();
 
-	/**
-	 * Sends a message to the sender.
-	 *
-	 * @param message The message to send.
-	 */
-	void sendMessage(String message);
+    /**
+     * Sends a message to the sender.
+     *
+     * @param message The message to send.
+     */
+    void send_message(String message);
 
-	/**
-	 * Checks whether the sender has the permission or not.
-	 *
-	 * @param permission The permission to test.
-	 * @return True if the sender has the permission, else false.
-	 */
-	boolean hasPermission(String permission);
+    /**
+     * Checks whether the sender has the permission or not.
+     *
+     * @param permission The permission to test.
+     * @return True if the sender has the permission, else false.
+     */
+    boolean has_permission(String permission);
 }

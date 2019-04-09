@@ -1,5 +1,5 @@
 /*
- * Copyright © 2018 AperLambda <aper.entertainment@gmail.com>
+ * Copyright © 2019 LambdAurora <aurora42lambda@gmail.com>
  *
  * This file is part of kimiko.
  *
@@ -17,11 +17,11 @@ import java.util.List;
  * Represents a tab completer handler of a command.
  *
  * @param <S> The typename of the sender.
- * @version 1.0.2
+ * @version 1.1.0
  * @since 1.0.0
  */
 @FunctionalInterface
 public interface CommandTabCompleter<S>
 {
-	List<String> onTabComplete(CommandContext<S> context, @NotNull Command<S> command, String label, String[] args);
+    List<String> on_tab_complete(CommandContext<S> context, @NotNull Command<S> command, String label, String[] args);
 }

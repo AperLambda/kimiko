@@ -37,3 +37,8 @@
 
  - HTML 5 javadoc
  - lambdajcommon 1.4.10
+ 
+## 1.1.0
+ 
+ - snake_case!
+ - lambdajcommon v1.6.0
